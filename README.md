@@ -27,4 +27,9 @@ A verificação de links precisa de acesso à internet. Ela também confere cami
 
 ## Evidências do exercício
 
+- [Site publicado no GitHub Pages](https://oaugusto797.github.io/portfolio-devops/)
+- [Pull Request de demonstração](https://github.com/OaugustO797/portfolio-devops/pull/1)
+- [Execução da CI com HTML inválido](https://github.com/OaugustO797/portfolio-devops/actions/runs/45297064512)
+- [Publicação inicial concluída](https://github.com/OaugustO797/portfolio-devops/actions/runs/45296999475)
+
 Abra um PR de demonstração para `main` com uma tag HTML sem fechamento. Registre a execução vermelha na aba **Actions**. Em seguida, corrija a tag no PR, aguarde os dois checks e faça o merge. Registre o workflow de publicação concluído na aba **Actions** e use a URL mostrada pelo ambiente `github-pages`.
