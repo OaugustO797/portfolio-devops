@@ -1,0 +1,48 @@
+name: Publicação no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    name: Validar e empacotar site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validar entrada, tamanho e conteúdo
+        run: bash scripts/prepare-site.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run check:links
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publicar:
+    name: Publicar no GitHub Pages
+    needs: preparar
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
